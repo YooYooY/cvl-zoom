@@ -12,7 +12,7 @@ const Sidebar = () => {
     <section className="sticky top-0 left-0 flex h-screen w-fit flex-col justify-between bg-dark-1 p-6 pt-28 text-white max-sm:hidden lg:w-[264px]">
       <div className="flex flex-1 flex-col gap-6">
         {sidebarLinks.map((link) => {
-          const isActive = pathname === link.route || pathname.startsWith(link.route)
+          const isActive = pathname === link.route || pathname.startsWith(`${link.route}/`)
           return (
             <Link
               href={link.route}
@@ -22,8 +22,7 @@ const Sidebar = () => {
               })}
             >
               <Image src={link.imgUrl} alt={link.lable} width={24} height={24} />
-
-              <p className='text-lg font-semibold max-lg:hidden'>{link.lable}</p>
+              <p className="text-lg font-semibold max-lg:hidden">{link.lable}</p>
             </Link>
           )
         })}
