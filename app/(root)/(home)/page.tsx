@@ -1,11 +1,19 @@
 'use client'
 import { MeetingTypeList } from '@/components/MeetingTypeList'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 const Home = () => {
-  const now = new Date()
-  const time = now.toLocaleTimeString(navigator.language, { hour: 'numeric', minute: 'numeric', hour12: true })
-  const date = new Intl.DateTimeFormat(navigator.language, { dateStyle: 'full' }).format(now)
+  
+  const [time,setTime]=useState('-')
+  const [date, setDate] = useState('-')
+  
+  useEffect(()=>{
+    if(navigator){
+      const now = new Date()
+      setTime(now.toLocaleTimeString(navigator.language, { hour: 'numeric', minute: 'numeric', hour12: true }))
+      setDate(new Intl.DateTimeFormat(navigator.language, { dateStyle: 'full' }).format(now))
+    }
+  },[])
 
   return (
     <section className="flex size-full flex-col gap-10 text-white">
