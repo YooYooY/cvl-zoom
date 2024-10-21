@@ -20,7 +20,7 @@ export const HomeCard = ({ className, img, title, description, handleClick }: Ho
       onClick={handleClick}
     >
       <div className="flex-center glassmorphism size-12 rounded-[10px]">
-        <Image src={img} alt="meeting" width={27} height={27} />
+        <Image src={img} alt="meeting" width={27} height={27} className="w-auto h-auto" />
       </div>
       <div className="flex flex-col gap-2">
         <h1 className="text-2xl font-bold">{title}</h1>
