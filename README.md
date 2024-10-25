@@ -1,4 +1,4 @@
-video conferencing app in hours using Next.js 14, Stream, and Tailwind CSS.
+Video conferencing app in hours using Next.js 14, Stream, and Tailwind CSS.
 
 ### Demo Link
 
