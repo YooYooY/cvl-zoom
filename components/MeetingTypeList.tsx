@@ -7,6 +7,7 @@ import { useUser } from '@clerk/nextjs'
 import ReactDatePicker from 'react-datepicker'
 import { Call, useStreamVideoClient } from '@stream-io/video-react-sdk'
 import { useToast } from './ui/use-toast'
+import { Input } from './ui/input'
 
 export const MeetingTypeList = () => {
   const router = useRouter()
@@ -148,6 +149,21 @@ export const MeetingTypeList = () => {
           buttonText="Copy Meeting Link"
         />
       )}
+
+      <MeetingModal
+        isOpen={meetingState === 'isJoiningMeeting'}
+        onClose={() => setMeetingState(undefined)}
+        title="Type the link here"
+        className="text-center"
+        buttonText="Join Meeting"
+        handleClick={() => router.push(values.link)}
+      >
+        <Input
+          placeholder="Meeting link"
+          onChange={(e) => setValues({ ...values, link: e.target.value })}
+          className="border-none bg-dark-3 focus-visible:ring-0 focus-visible:ring-offset-0"
+        />
+      </MeetingModal>
     </section>
   )
 }
