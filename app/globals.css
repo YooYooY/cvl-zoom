@@ -81,6 +81,16 @@
   color: white;
 }
 
+.cl-internal-1o11va6{ 
+  opacity: .7;
+}
+
+.cl-internal-1o11va6:hover{
+  opacity: 1;
+  color: #dde0fe;
+}
+
+
 /* =============================== */
 
 @layer utilities {

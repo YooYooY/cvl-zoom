@@ -1,6 +1,8 @@
+'use client'
+
 import { useGetCalls } from '@/hooks/useGetCalls'
 import { Call, CallRecording } from '@stream-io/video-react-sdk'
-import { Loader } from 'lucide-react'
+import Loader from './Loader'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import MeetingCard from './MeetingCard'
@@ -57,9 +59,35 @@ const CallList = ({ type }: { type: 'ended' | 'upcoming' | 'recordings' }) => {
 
   return (
     <div className="grid grid-cols-1 gap-5 xl:grid-cols-2">
-      {calls && calls.length > 0 ? calls.map(()=>(
-        <MeetingCard></MeetingCard>
-      )) : (<h1 className='text-2xl font-bold text-white'>{noCallsMessage}</h1>)}
+      {calls && calls.length > 0 ? (
+        calls.map((meeting: Call | CallRecording) => (
+          <MeetingCard
+            key={(meeting as Call).id}
+            icon={type === 'ended' ? '/icons/previous.svg' : type === 'upcoming' ? 'icons/upcoming.svg' : '/icons/recordings.svg'}
+            title={
+              (meeting as Call).state?.custom?.description ||
+              (meeting as CallRecording).filename?.substring(0, 20) ||
+              'No Description'
+            }
+            date={(meeting as Call).state?.startsAt?.toLocaleDateString() || (meeting as CallRecording).start_time}
+            isPreviousMeeting={type === 'ended'}
+            link={
+              type === 'recordings'
+                ? (meeting as CallRecording).url
+                : `${process.env.NEXT_PUBLIC_BASE_URL}/meeting/${(meeting as Call).id}`
+            }
+            buttonIcon={type === 'recordings' ? '/icons/play.svg' : undefined}
+            buttonText={type === 'recordings' ? 'Play' : 'Start'}
+            handleClick={
+              type === 'recordings'
+                ? () => router.push(`${(meeting as CallRecording).url}`)
+                : () => router.push(`/meeting/${(meeting as Call).id}`)
+            }
+          ></MeetingCard>
+        ))
+      ) : (
+        <h1 className="text-2xl font-bold text-white">{noCallsMessage}</h1>
+      )}
     </div>
   )
 }

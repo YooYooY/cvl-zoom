@@ -1,5 +1,7 @@
+import RouterBack from '@/components/RouterBack'
 import StreamVideoProvider from '@/provoders/StreamClientProvider'
 import { Metadata } from 'next'
+
 import React, { ReactNode } from 'react'
 
 export const metadata: Metadata = {
@@ -13,6 +15,7 @@ export const metadata: Metadata = {
 const RootLayout = ({ children }: { children: ReactNode }) => {
   return (
     <main>
+      <RouterBack />
       <StreamVideoProvider>{children}</StreamVideoProvider>
     </main>
   )
